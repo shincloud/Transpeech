@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+  window.onload = function() {
+    var recognition = new webkitSpeechRecognition();
+    recognition.onresult = function(event) {
+      alert(event);
+      console.log(event);
+    }
+
+    var e = document.getElementById('btn');
+    e.onclick = function() {
+      alert("talk");
+      recognition.start();
+    }
+  }
+
+</script>
+</head>
+
+<body>
+  <form>
+    <input type="button" value="Talk!" id="btn" />
+  </form>  
+</body>
+</html>
