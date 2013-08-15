@@ -3,16 +3,16 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-<script type="text/javascript" src="http://api.microsofttranslator.com/V2/Ajax.svc/Translate"></script>
 <script type="text/javascript">
-  translate = function(){
-    var text = $('#text').val;
+$(function() {
+  $('#btn').click(function(){
+    var text = $('#text').text();
     $.ajax({
       type: "GET",
       url: "http://api.microsofttranslator.com/V2/Ajax.svc/Translate",
       dataType: "jsonp",
       data: {
-        appId: CuDnXtnR4njgkPOmq2jUoUybBoUvXdTteknbIfqCUQE,
+        appId: "CuDnXtnR4njgkPOmq2jUoUybBoUvXdTteknbIfqCUQE",
         text: text,
         from: "ja",
         to: "en"
@@ -20,15 +20,18 @@
       jsonp: "oncomplete",
       success : function(ret){
         $('#text2').val(ret);
+        alert(ret);
       },
       error : function(XMLHttpRequest, textStatus, errorThrown){
-        $('#result').val(textStatus);
+        alert("error");
       }
     });
-  }
+  });
+});
 </script>
 </head>
 <body>
+<input type="button" value="click" id="btn" />
 <p id="text">こんにちは。</p>
 <p id="text2"></p>
 </body>
