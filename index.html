@@ -1,8 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script>
-  window.onload = function() {
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+<script type="text/javascript">
+google.load("language", "1");
+$(function(){
     var t = document.getElementById('text');
     var recognition = new webkitSpeechRecognition();
     recognition.onresult = function(event) {
@@ -10,6 +14,12 @@
       for (var i = event.resultIndex; i < event.results.length; ++i) {
         if (event.results[i].isFinal) {
           t.innerHTML += event.results[i][0].transcript;
+          alert(t.value);
+          google.language.translate(t, "ja", "en", function(result) {
+            if (!result.error) {
+              $('p#text').append("("+result.translation+")");
+            }
+          });
         } else {
 //          t.innerHTML += event.results[i][0].transcript;
         }
@@ -21,7 +31,7 @@
       alert("talk");
       recognition.start();
     }
-  }
+});
 
 </script>
 </head>

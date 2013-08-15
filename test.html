@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+<script type="text/javascript">
+google.load("language", "1");
+$(function(){
+    var text = $('p#text').text();
+    google.language.translate(text, "ja", "en", function(result) {
+        alert("pass");
+        if (!result.error) {
+            alert("pass2");
+            $('p#text').append("("+result.translation+")");
+        }
+        else {
+            console.log(result);
+        }
+    });
+});
+</script>
+</head>
+<body>
+<p id="text">こんにちは。今日は良い天気ですね。</p>
+</body>
+</html>
