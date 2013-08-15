@@ -6,27 +6,30 @@
 <script type="text/javascript">
 $(function() {
   $('#btn').click(function(){
-    var text = $('#text').text();
-    $.ajax({
-      type: "GET",
-      url: "http://api.microsofttranslator.com/V2/Ajax.svc/Translate",
-      dataType: "jsonp",
-      data: {
-        appId: "CuDnXtnR4njgkPOmq2jUoUybBoUvXdTteknbIfqCUQE",
-        text: text,
-        from: "ja",
-        to: "en"
-      },
-      jsonp: "oncomplete",
-      success : function(ret){
-        $('#text2').val(ret);
-        alert(ret);
-      },
-      error : function(XMLHttpRequest, textStatus, errorThrown){
-        alert("error");
-      }
-    });
-  });
+
+        var languageFrom = "ja";
+        var languageTo = "en";
+
+        var text = $('#text').text();
+
+            PageMethods.GetAccessToken(OnSucceeded, OnFailed);
+        });
+
+        function OnSucceeded(result, usercontext, methodName) {
+
+            window.mycallback = function (response) {
+              $('#text2').val(response);
+              alert(response);
+            }
+
+            var s = document.createElement("script");
+            s.src = "http://api.microsofttranslator.com/V2/Ajax.svc/Translate?oncomplete=mycallback&appId=Transpeech " + encodeURIComponent(result.access_token) + "&from=" + languageFrom + "&to=" + languageTo + "&text=" + text;
+            document.getElementsByTagName("head")[0].appendChild(s);
+        }
+
+        function OnFailed(error, userContext, methodName) {
+            alert("Error");
+        }
 });
 </script>
 </head>
