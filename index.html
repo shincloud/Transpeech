@@ -3,10 +3,17 @@
 <head>
 <script>
   window.onload = function() {
+    var t = document.getElementById('text');
     var recognition = new webkitSpeechRecognition();
     recognition.onresult = function(event) {
       alert(event);
-      console.log(event);
+      for (var i = event.resultIndex; i < event.results.length; ++i) {
+        if (event.results[i].isFinal) {
+          t.innerHTML += event.results[i][0].transcript;
+        } else {
+          t.innerHTML += event.results[i][0].transcript;
+        }
+      }
     }
 
     var e = document.getElementById('btn');
@@ -22,6 +29,7 @@
 <body>
   <form>
     <input type="button" value="Talk!" id="btn" />
+    <div id="text"></div>
   </form>  
 </body>
 </html>
