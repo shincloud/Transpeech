@@ -5,23 +5,31 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 <script type="text/javascript" src="http://www.google.com/jsapi"></script>
 <script type="text/javascript">
-google.load("language", "1");
-$(function(){
-    var text = $('p#text').text();
-    google.language.translate(text, "ja", "en", function(result) {
-        alert("pass");
-        if (!result.error) {
-            alert("pass2");
-            $('p#text').append("("+result.translation+")");
-        }
-        else {
-            console.log(result);
-        }
+  translate = function(){
+    var text = $('#text2').val;
+    $.ajax({
+      type: "GET",
+      url: "http://api.microsofttranslator.com/V2/Ajax.svc/Translate",
+      dataType: "jsonp",
+      data: {
+        appId: CuDnXtnR4njgkPOmq2jUoUybBoUvXdTteknbIfqCUQE,
+        text: text,
+        from: "ja",
+        to: "en"
+      },
+      jsonp: "oncomplete",
+      success : function(ret){
+        $('#text2').val(ret);
+      },
+      error : function(XMLHttpRequest, textStatus, errorThrown){
+        $('#result').val(textStatus);
+      }
     });
-});
+  }
 </script>
 </head>
 <body>
 <p id="text">こんにちは。今日は良い天気ですね。</p>
+<p id="text2"></p>
 </body>
 </html>
